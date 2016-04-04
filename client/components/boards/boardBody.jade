@@ -1,3 +1,10 @@
+template(name="compactView")
+  if isBoardReady.get
+    if currentBoard
+      +cardCompact(currentCard)
+    else
+      +spinner
+
 template(name="board")
   if isBoardReady.get
     if currentBoard

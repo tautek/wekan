@@ -35,6 +35,9 @@ template(name="defaultLayout")
         +Template.dynamic(template=Modal.getHeaderName)
         +Template.dynamic(template=Modal.getTemplateName)
 
+template(name="compactCardLayout")
+  +Template.dynamic(template='compactView')
+
 template(name="notFound")
   +message(label='page-not-found')
 

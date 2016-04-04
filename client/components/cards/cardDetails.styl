@@ -1,5 +1,58 @@
 @import 'nib'
 
+.oe-card
+  background: rgba(49, 91, 115, 1)
+  color: rgba(255, 255, 255, 1)
+  font-family: Roboto, sans-serif
+  line-height: 1.5
+  font-weight: normal
+  padding: 5px
+  width: 400px
+  height: 40px
+  border-radius: 4px
+
+.oe-card.oe-status-completed
+  background: rgba(17, 160, 79, 1)
+
+.oe-card.oe-status-waiting
+  background: rgba(165, 28, 14, 1)
+
+.oe-card.oe-status-assigned
+  background: rgba(199, 99, 12, 1)
+
+.oe-detail
+  display: inline
+  width: 300px
+  max-height: 60px
+
+.oe-detail-title
+  font-size: 12px
+  display: block
+  height: 30px
+  max-height: 30px
+  overflow: hidden
+
+.oe-detail-status
+  font-size: 10px
+  display: block
+
+.oe-action
+  display: inline
+  padding: 0px
+  margin: -5px
+  padding-top: 5px
+  padding-left: 10px
+  display: inline
+  width: 30px
+  float: right
+
+.oe-action-icon
+  color: rgba(200, 200, 200, 1) !important
+  font-size: 18px
+
+.oe-action-icon:hover
+  color: rgba(220, 220, 220, 1) !important
+
 .card-details
   padding: 0 20px
   height: 100%

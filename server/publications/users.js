@@ -9,3 +9,10 @@ Meteor.publish('user-miniprofile', function(userId) {
     },
   });
 });
+
+Meteor.publish('users', function() {
+  if (!Match.test(this.userId, String))
+    return [];
+  return Users.find({});
+});
+

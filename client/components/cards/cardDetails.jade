@@ -1,3 +1,18 @@
+template(name="cardCompact")
+  div.oe-card(class="{{statusClass}}")
+    div.oe-action
+      if canAssignToMe
+        a.oe-action-assign
+          i.fa.fa-thumbs-o-up.oe-action-icon
+      if canUnassignMe
+        a.oe-action-unassign
+          i.fa.fa-thumbs-o-down.oe-action-icon
+        a.oe-action-complete
+          i.fa.fa-check.oe-action-icon
+    div.oe-detail
+      div.oe-detail-title {{ currentCard.title }}
+      div.oe-detail-status {{ statusLine }}
+
 template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
     .card-details-header

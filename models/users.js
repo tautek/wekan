@@ -189,9 +189,10 @@ Meteor.methods({
 if (Meteor.isServer) {
   Meteor.methods({
     // we accept userId, username, email
-    inviteUserToBoard(username, boardId) {
+    inviteUserToBoard(username, boardId, isAdmin) {
       check(username, String);
       check(boardId, String);
+      check(isAdmin, Match.Optional(Boolean));
 
       const inviter = Meteor.user();
       const board = Boards.findOne(boardId);
@@ -233,7 +234,7 @@ if (Meteor.isServer) {
         user = Users.findOne(newUserId);
       }
 
-      board.addMember(user._id);
+      board.addMember(user._id, isAdmin);
       user.addInvite(boardId);
 
       try {

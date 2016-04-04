@@ -1,4 +1,77 @@
 BlazeComponent.extendComponent({
+  canAssignToMe() {
+    const card = this.currentData();
+    const list = card.list();
+    if (list.title !== "Completed") {
+      if (card.members.length == 0) {
+        return true;
+      } else {
+        return card.members[0] !== Meteor.userId();
+      }
+    }
+    return false;
+  },
+  canUnassignMe() {
+    const card = this.currentData();
+    const list = card.list();
+    return list.title === "Assigned" &&
+           card.members.length > 0 &&
+           card.members[0] === Meteor.userId();
+  },
+  statusLine() {
+    const card = this.currentData();
+    const list = card.list();
+    if (list.title === "Waiting") {
+      return "Created " + moment(card.createdAt).fromNow();
+    } else {
+      const user = Users.findOne(card.members[0]);
+      const action = (list.title === "Assigned") ? "Assigned to " : "Completed by ";
+      //const activity = Activities.find({userId: user._id, activityType : "moveCard"}, {sort: {createdAt: -1}, limit: 1}).fetch().pop();
+      return action + user.getName(); //moment(activity.createdAt).fromNow();
+    }
+  },
+  statusClass() {
+    const card = this.currentData();
+    const list = card.list();
+    if (list.title === "Waiting") {
+      return "oe-status-waiting";
+    } else if (list.title === "Assigned") {
+      return "oe-status-assigned";
+    } else {
+      return "oe-status-completed";
+    }
+  },
+  events() {
+    return [{
+    'click .oe-action-assign'(evt) {
+      evt.preventDefault();
+      var card = Cards.findOne(this.currentData()._id);
+      const assigned = Lists.findOne({ boardId: card.boardId, title: 'Assigned' });
+      card.toggleMember(Meteor.userId());
+      card.move(assigned._id, 0);
+    },
+    'click .oe-action-unassign'(evt) {
+      evt.preventDefault();
+      var card = Cards.findOne(this.currentData()._id);
+      const waiting = Lists.findOne({ boardId: card.boardId, title: 'Waiting' });
+      card.toggleMember(Meteor.userId());
+      card.move(waiting._id, 0);
+    },
+    'click .oe-action-complete'(evt) {
+      evt.preventDefault();
+      var card = Cards.findOne(this.currentData()._id);
+      const completed = Lists.findOne({ boardId: card.boardId, title: 'Completed' });
+      card.move(completed._id, 0);
+    },
+    'click #body'(evt) {
+      console.log("BODY CLICKED!");
+      evt.preventDefault();
+    }
+    }];
+  }
+}).register('cardCompact');
+
+BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
   },

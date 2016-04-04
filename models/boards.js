@@ -221,7 +221,8 @@ Boards.mutations({
     return { $pull: { labels: { _id: labelId }}};
   },
 
-  addMember(memberId) {
+  addMember(memberId, isAdmin) {
+    isAdmin = typeof(isAdmin) === 'boolean' ? isAdmin : false; 
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex >= 0) {
       return {
@@ -235,7 +236,7 @@ Boards.mutations({
       $push: {
         members: {
           userId: memberId,
-          isAdmin: false,
+          isAdmin: isAdmin,
           isActive: true,
         },
       },

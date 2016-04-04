@@ -58,6 +58,19 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
   },
 });
 
+FlowRouter.route('/o/:boardId/:cardId', {
+  name: 'oembed',
+  action(params) {
+    EscapeActions.executeUpTo('inlinedForm');
+
+    Session.set('currentBoard', params.boardId);
+    Session.set('currentCard', params.cardId);
+
+    BlazeLayout.render('compactCardLayout', {
+    });
+  },
+});
+
 FlowRouter.route('/shortcuts', {
   name: 'shortcuts',
   action() {
