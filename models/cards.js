@@ -204,7 +204,7 @@ Cards.before.insert((userId, doc) => {
 if (Meteor.isServer) {
 
   Meteor.methods({
-    createCard(boardId, title, listId) {
+    'cards.create'(boardId, title, listId) {
       check(boardId, String);
       check(title, String);
       check(listId, String);
@@ -212,8 +212,8 @@ if (Meteor.isServer) {
       Cards.insert({title: title,
                     members: [],
                     labelIds: [],
-                    listId: list_id,
-                    boardId: board_id,
+                    listId: listId,
+                    boardId: boardId,
                     sort: 1,
                     createdAt: now,
                     dateLastActivity: now,

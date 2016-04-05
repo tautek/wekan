@@ -86,6 +86,21 @@ Lists.before.update((userId, doc, fieldNames, modifier) => {
 });
 
 if (Meteor.isServer) {
+
+  Meteor.methods({
+    'lists.create'(boardId, title, sort) {
+      check(boardId, String);
+      check(title, String);
+      check(sort, Number);
+      const now = new Date();
+      Lists.insert({title: title,
+                    boardId: boardId,
+                    sort: sort,
+                    createdAt: now,
+                    archived: false});
+    }
+  });
+
   Lists.after.insert((userId, doc) => {
     Activities.insert({
       userId,

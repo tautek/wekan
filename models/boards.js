@@ -336,6 +336,23 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
+    'boards.create'(title, permission, slug) {
+      check(title, String);
+      check(permission, String);
+      check(slug, String);
+      const now = new Date();
+      Boards.insert({title: title,
+                     permission: permission,
+                     slug: slug,
+                     createdAt: now,
+                     archived: false,
+                     members: [{userId: Meteor.userId(),
+                                isAdmin: true,
+                                isActive: true}, ],
+                     stars: 0,
+                     color: "belize",
+                     labels: []});
+    }
   });
 }
 
