@@ -202,6 +202,26 @@ Cards.before.insert((userId, doc) => {
 });
 
 if (Meteor.isServer) {
+
+  Meteor.methods({
+    createCard(boardId, title, listId) {
+      check(boardId, String);
+      check(title, String);
+      check(listId, String);
+      const now = new Date();
+      Cards.insert({title: title,
+                    members: [],
+                    labelIds: [],
+                    listId: list_id,
+                    boardId: board_id,
+                    sort: 1,
+                    createdAt: now,
+                    dateLastActivity: now,
+                    userId: Meteor.userId(),
+                    archived: false});
+    }
+  });
+
   Cards.after.insert((userId, doc) => {
     Activities.insert({
       userId,
