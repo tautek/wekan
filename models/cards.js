@@ -120,7 +120,7 @@ Cards.helpers({
       boardId: board._id,
       slug: board.slug,
       cardId: this._id,
-    });
+    }).replace(/\/\/+/g, "/");
   },
 });
 
