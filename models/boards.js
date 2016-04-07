@@ -151,7 +151,7 @@ Boards.helpers({
   },
 
   absoluteUrl() {
-    return FlowRouter.url('board', { id: this._id, slug: this.slug }).replace(/(?:[^\:])(\/\/+)/g, '/');
+    return FlowRouter.url('board', { id: this._id, slug: this.slug }).replace(/\b(\/\/+)/g, '/');
   },
 
   colorClass() {
